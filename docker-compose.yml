@@ -1,0 +1,30 @@
+version: '2'
+services:
+        homebdd:
+                image: homebdd:v1
+                restart: unless-stopped
+                container_name: 'homebdd_1'
+                hostname: homebdd.plm
+                environment:
+                        - MYSQL_USER=admin
+                        - MYSQL_PASSWORD=doS5aH3kLx0lzJy6gjuR
+                        - MYSQL_DATABASE=homeplm
+                        - MYSQL_ROOT_PASSWORD=juN8oqmXx50BedrX7kFD
+                        - TZ=Europe/Paris
+                        - TERM=xterm
+                volumes:
+                       - homebdd_data:/var/lib/mysql
+        homeportainer:
+                image: portainer/portainer
+                restart: always
+                container_name: 'homeportainer'
+                hostname: homeportainer.plm
+                volumes:
+                        - /var/run/docker.sock:/var/run/docker.sock
+                        - portainer_data:/data 
+                ports:
+                        - 9000:9000
+               
+volumes:
+        portainer_data:
+        homebdd_data:        
