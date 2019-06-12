@@ -14,6 +14,17 @@ services:
                         - TERM=xterm
                 volumes:
                        - homebdd_data:/var/lib/mysql
+        homephpmyadmin:
+                image: homephpmyadmin:v1
+                restart: unless-stopped
+                container_name: 'homephpmyadmin'
+                hostname: homephpmyadmin.plm
+                environment:
+                        - PMA_HOST=homebdd
+                links:
+                        - homebdd
+                ports:
+                        - 8080:80           
         homeportainer:
                 image: portainer/portainer
                 restart: always
