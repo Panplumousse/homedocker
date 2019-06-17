@@ -13,7 +13,21 @@ services:
                         - TZ=Europe/Paris
                         - TERM=xterm
                 volumes:
-                       - homebdd_data:/var/lib/mysql
+                        - homebdd_data:/var/lib/mysql
+        homebddcacti:
+                image: homebdd:v1
+                restart: unless-stopped
+                container_name: 'homebddcacti'
+                hostname: homebddcacti.plm
+                environment:
+                        - MYSQL_USER=cacti
+                        - MYSQL_PASSWORD=TMhIKN94lWdIJFLzxesF
+                        - MYSQL_DATABASE=cacti
+                        - MYSQL_ROOT_PASSWORD=VyhOhudMImVHF9O2g19L
+                        - TZ=Europe/Paris
+                        - TERM=xterm
+                volumes:
+                        - homebddcacti_data:/var/lib/mysql 
         homephpmyadmin:
                 image: homephpmyadmin:v1
                 restart: unless-stopped
@@ -24,7 +38,16 @@ services:
                 links:
                         - homebdd
                 ports:
-                        - 8080:80           
+                        - 8080:80
+        homecacti:
+                image: homecacti:v1
+                restart: unless-stopped
+                container_name: 'homecacti'
+                hostname: homecacti.plm
+                links:
+                        - homebddcacti
+                ports:
+                        - 8081:80                
         homeportainer:
                 image: portainer/portainer
                 restart: always
@@ -38,4 +61,6 @@ services:
                
 volumes:
         portainer_data:
-        homebdd_data:        
+        homebdd_data:
+        homebddcacti_data:
+        homecacti_data:        

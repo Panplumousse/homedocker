@@ -48,7 +48,7 @@ MAINTAINER Levrez Matthias "matthias.levrez@gmail.fr"
 	ENV 	SRC /usr/src/phpmyadmin
 	LABEL 	version=$VERSION
 
-#TELECHARGEMENT DES SOURCES
+#TELECHARGEMENT DES SOURCES ET INSTALLATION
 
 	RUN	curl --output $TAR --location $URL && \
 		tar -xf $TAR -C /usr/src && \
